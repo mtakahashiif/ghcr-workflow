@@ -1,0 +1,20 @@
+name: build and push container image
+on:
+  workflow_dispatch:
+
+jobs:
+  build_and_push:
+    name: build and push container image
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: login
+        run: echo -n "$GITHUB_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+
+      - name: build
+        run: docker build --tag ghcr.io/mtakahashiif/sample:latest .
+
+      - name: push
+        run: docker push ghcr.io/mtakahashiif/sample:latest
