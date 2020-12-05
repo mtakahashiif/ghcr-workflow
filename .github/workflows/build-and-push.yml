@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: login
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login --username $GITHUB_ACTOR --password-stdin ghcr.io
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login --username "${{ secrets.GHCR_USERNAME }}" --password-stdin ghcr.io
 
       - name: build
         run: docker build --tag ghcr.io/mtakahashiif/sample:latest .
